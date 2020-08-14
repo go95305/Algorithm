@@ -9,6 +9,8 @@ public class S1238_Contact {
 	static ArrayList<int[]> rank;
 	static int Ans;
 	static int max;
+	static boolean value[];
+	static Integer dest;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -24,6 +26,7 @@ public class S1238_Contact {
 				adj[i] = new ArrayList<Integer>();
 			}
 			v = new boolean[101];
+			value = new boolean[101];
 			for (int i = 0; i < N / 2; i++) {
 				int from = sc.nextInt();
 				int to = sc.nextInt();
@@ -31,17 +34,17 @@ public class S1238_Contact {
 			}
 			dfs(start, 0);
 			max = 0;
-//			for (int i = 0; i < rank.size(); i++) {
-//				System.out.println(rank.get(i)[0]);
-//			}
+			for (int i = 0; i < rank.size(); i++) {
+				System.out.println(rank.get(i)[0] + " " + rank.get(i)[1]);
+			}
 //			System.out.println();
-			 for (int i = 0; i < rank.size(); i++) {
+			for (int i = 0; i < rank.size(); i++) {
 				if (rank.get(i)[1] > max) {
 					max = rank.get(i)[1];
 					Ans = rank.get(i)[0];
 				}
 			}
-			System.out.println(Ans);
+//			System.out.println(Ans);
 
 		}
 
@@ -50,14 +53,21 @@ public class S1238_Contact {
 	private static void dfs(int start, int level) {
 		v[start] = true;
 		int size = adj[start].size();
-		if (size == 0) {
-			rank.add(new int[] { start, level });
-			return;
-		}
+
+		boolean flag = false;
 		for (int i = 0; i < size; i++) {
-			Integer dest = adj[start].get(i);
+			dest = adj[start].get(i);
 			if (!v[dest]) {
+				flag = true;
 				dfs(dest, level + 1);
+				v[dest] = false;
+			}
+		}
+
+		if (!flag) {
+			if (!value[dest]) {
+				value[dest] = true;
+				rank.add(new int[] { start, level });
 			}
 		}
 	}

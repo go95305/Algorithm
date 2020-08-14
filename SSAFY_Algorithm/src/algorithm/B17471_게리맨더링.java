@@ -31,7 +31,7 @@ public class B17471_게리맨더링 {
 				adj[i].add(sc.nextInt());
 			}
 		}
-			dfs(1);
+		dfs(1);
 //		System.out.println(max);
 //		print(adj);
 
@@ -39,29 +39,27 @@ public class B17471_게리맨더링 {
 
 	private static void dfs(int idx) {
 		v[idx] = true;
-		System.out.print(idx+" ");
+//		System.out.print(idx+" ");
 		sum += ar[idx];
 		int size = adj[idx].size();
 		for (int i = 0; i < size; i++) {
 			Integer n = adj[idx].get(i);
 			if (!v[n]) {
 				dfs(n);
-			} 
-//			else {
-//				if (adj[idx].size() <= 2) {
-//					int tmp = 0;
-//					for (int j = 0; j < v.length; j++) {
-//						if (!v[j]) {
-//							tmp += ar[j];
-//						}
-//					}
-//					if (max > Math.abs(sum - tmp)) {
-//						max = sum;
-//					}
-//				}
-//			}
+			} else {
+				if (adj[idx].size() == 2) {
+					int tmp = 0;
+					for (int j = 0; j < v.length; j++) {
+						if (!v[j]) {
+							tmp += ar[j];
+						}
+					}
+					if (max > Math.abs(sum - tmp)) {
+						max = sum;
+					}
+				}
+			}
 		}
-
 	}
 
 	private static void print(ArrayList<Integer>[] adj) {
@@ -73,4 +71,5 @@ public class B17471_게리맨더링 {
 			System.out.println();
 		}
 	}
+
 }
