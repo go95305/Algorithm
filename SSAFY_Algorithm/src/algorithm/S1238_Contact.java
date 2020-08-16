@@ -1,75 +1,78 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class S1238_Contact {
 	static ArrayList<Integer>[] adj;
+	static ArrayList<Point> Ans;
 	static boolean v[];
-	static ArrayList<int[]> rank;
-	static int Ans;
-	static int max;
-	static boolean value[];
-	static Integer dest;
+	static int lev;
+	static ArrayList<Integer> list;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int T = 10;
 
 		for (int test_case = 1; test_case <= T; test_case++) {
-			adj = new ArrayList[101];
-			Ans = 0;
-			rank = new ArrayList<int[]>();
 			int N = sc.nextInt();
+			adj = new ArrayList[N];
+			Ans = new ArrayList<Point>();
+			lev = 0;
 			int start = sc.nextInt();
 			for (int i = 0; i < adj.length; i++) {
 				adj[i] = new ArrayList<Integer>();
 			}
-			v = new boolean[101];
-			value = new boolean[101];
+			v = new boolean[N];
 			for (int i = 0; i < N / 2; i++) {
 				int from = sc.nextInt();
 				int to = sc.nextInt();
 				adj[from].add(to);
 			}
-			dfs(start, 0);
-			max = 0;
-			for (int i = 0; i < rank.size(); i++) {
-				System.out.println(rank.get(i)[0] + " " + rank.get(i)[1]);
-			}
-//			System.out.println();
-			for (int i = 0; i < rank.size(); i++) {
-				if (rank.get(i)[1] > max) {
-					max = rank.get(i)[1];
-					Ans = rank.get(i)[0];
+			bfs(start, 0);
+			list = new ArrayList<Integer>();
+			for (int i = 0; i < Ans.size(); i++) {
+				if (Ans.get(i).level == lev) {
+					list.add(Ans.get(i).p);
 				}
 			}
-//			System.out.println(Ans);
+			Collections.sort(list, Collections.reverseOrder());
+			System.out.printf("#%d %d\n",test_case,list.get(0));
+		}
+	}
 
+	private static void bfs(int start, int level) {
+		Queue<Point> que = new LinkedList();
+		v[start] = true;
+		que.add(new Point(start, level));
+		while (!que.isEmpty()) {
+			Point p = que.poll();
+			Ans.add(new Point(p.p, p.level));
+			lev = p.level;
+			int size = adj[p.p].size();
+			for (int i = 0; i < size; i++) {
+				Integer n = adj[p.p].get(i);
+				if (!v[n]) {
+					v[n] = true;
+					que.add(new Point(n, p.level + 1));
+				}
+			}
 		}
 
 	}
 
-	private static void dfs(int start, int level) {
-		v[start] = true;
-		int size = adj[start].size();
+	static class Point {
+		int p;
+		int level;
 
-		boolean flag = false;
-		for (int i = 0; i < size; i++) {
-			dest = adj[start].get(i);
-			if (!v[dest]) {
-				flag = true;
-				dfs(dest, level + 1);
-				v[dest] = false;
-			}
+		Point(int p, int level) {
+			this.p = p;
+			this.level = level;
 		}
 
-		if (!flag) {
-			if (!value[dest]) {
-				value[dest] = true;
-				rank.add(new int[] { start, level });
-			}
-		}
 	}
 
 }
