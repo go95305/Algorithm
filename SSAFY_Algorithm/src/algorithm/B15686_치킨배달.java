@@ -1,11 +1,11 @@
-package ws_200825;
+package algorithm;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class B15686_치킨배달2 {
+public class B15686_치킨배달 {
 	static class Loc {
 		int r, c;
 
