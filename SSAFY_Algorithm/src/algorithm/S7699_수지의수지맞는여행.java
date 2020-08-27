@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class S7699 {
+public class S7699_수지의수지맞는여행 {
 	static int R;
 	static int C;
 	static char ar[][];
@@ -18,7 +18,6 @@ public class S7699 {
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T = sc.nextInt();
-
 		for (int test_case = 1; test_case <= T; test_case++) {
 			cnt = 0;
 			max = 0;
@@ -58,15 +57,4 @@ public class S7699 {
 		}
 	}
 
-	static class Point {
-		int x;
-		int y;
-		char c;
-
-		Point(int x, int y, char c) {
-			this.x = x;
-			this.y = y;
-			this.c = c;
-		}
-	}
 }
