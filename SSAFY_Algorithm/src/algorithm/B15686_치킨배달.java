@@ -60,21 +60,21 @@ public class B15686_치킨배달 {
 			Ans = Math.min(Ans, sum);
 			return;
 		}
-		if (idx == chicken.size()) {
-			return;
-		}
-		sel[k] = idx;
-		com(idx + 1, k + 1);
-		com(idx + 1, k);
-
-//		for (int i = idx; i < chicken.size(); i++) {
-//			if(!v[i]) {
-//				v[i]=true;
-//				sel[k]=i;
-//				com(i+1, k+1);
-//				v[i]=false;
-//			}
+//		if (idx == chicken.size()) {
+//			return;
 //		}
+//		sel[k] = idx;
+//		com(idx + 1, k + 1);
+//		com(idx + 1, k);
+
+		for (int i = idx; i < chicken.size(); i++) {
+			if(!v[i]) {
+				v[i]=true;
+				sel[k]=i;
+				com(i+1, k+1);
+				v[i]=false;
+			}
+		}
 
 	}
 
