@@ -11,8 +11,6 @@ public class S3234_준환이의양팔저울 {
 	static int right[];
 	static boolean v[];
 	static int Ans;
-	static int sum[];
-	static int total;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -23,12 +21,9 @@ public class S3234_준환이의양팔저울 {
 			N = sc.nextInt();
 			ar = new int[N];
 			sel = new int[N];
-			sum = new int[2];
 			Ans = 0;
-			total = 0;
 			for (int i = 0; i < N; i++) {
 				ar[i] = sc.nextInt();
-				total += ar[i];
 			}
 			v = new boolean[N];
 			permutation(0, 0, 0);
