@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class S1251_하나로 {
+public class S1251_하나로_크루스칼 {
 	static int N;
 	static double E;
 	static int[][] X;
@@ -45,21 +45,25 @@ public class S1251_하나로 {
 					}
 				}
 			}
-			Collections.sort(edge);// 가중치를 오름차순기준으로 정렬
-
-			double sum = 0;//값이 크므로 double로 설정
-			int cnt = 0;
-			for (int i = 0; i < edge.size(); i++) {
-				if (find(edge.get(i).from) != find(edge.get(i).to)) {
-					sum += edge.get(i).weight;
-					cnt++;
-					union(edge.get(i).from, edge.get(i).to);
-					if (cnt == N - 1) {
-						break;
-					}
-				}
+			for(int i=0;i<edge.size();i++) {
+					System.out.println(i+" --"+edge.get(i).to+" : "+edge.get(i).weight);
 			}
-			System.out.printf("#%d %.0f\n", test_case, sum);
+
+//			Collections.sort(edge);// 가중치를 오름차순기준으로 정렬
+//
+//			double sum = 0;//값이 크므로 double로 설정
+//			int cnt = 0;
+//			for (int i = 0; i < edge.size(); i++) {
+//				if (find(edge.get(i).from) != find(edge.get(i).to)) {
+//					sum += edge.get(i).weight;
+//					cnt++;
+//					union(edge.get(i).from, edge.get(i).to);
+//					if (cnt == N - 1) {
+//						break;
+//					}
+//				}
+//			}
+//			System.out.printf("#%d %.0f\n", test_case, sum);
 		}
 	}
 

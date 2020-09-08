@@ -5,64 +5,93 @@ import java.util.Scanner;
 
 public class B17471_게리맨더링 {
 	static int N;
-	static int[] ar;
+	static int[] population;
 	static ArrayList<Integer>[] adj;
 	static boolean v[];
 	static int sum;
 	static int max;
-
+	static int Ans;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
 		adj = new ArrayList[N + 1];
-		for (int i = 1; i < adj.length; i++) {
+		for (int i = 0; i < adj.length; i++) {
 			adj[i] = new ArrayList<Integer>();
 		}
 		v = new boolean[N + 1];
-		ar = new int[N + 1];
+		population = new int[N + 1];
 		for (int i = 1; i < N + 1; i++) {
-			ar[i] = sc.nextInt();
+			population[i] = sc.nextInt();
 		}
 		sum = 0;
-		max = Integer.MAX_VALUE;
 		for (int i = 1; i < N + 1; i++) {
 			int num = sc.nextInt();
 			for (int j = 0; j < num; j++) {
-				adj[i].add(sc.nextInt());
+				int to = sc.nextInt();
+				adj[i].add(to);
+				adj[to].add(i);
 			}
 		}
-		dfs(1);
-//		System.out.println(max);
-//		print(adj);
-
+//		print();
+		Ans=Integer.MAX_VALUE;
+		powerSet(1, 0);
+		System.out.println(Ans);
 	}
 
-	private static void dfs(int idx) {
+	private static void powerSet(int idx, int k) {
+		if (idx == adj.length) {
+			int cnt = 0;
+			max=0;
+			boolean chk[] = new boolean[N + 1];
+			if (k > 0) {
+				for (int i = 1; i < adj.length; i++) {
+					if (chk[i]) {
+						dfs(i, chk);
+						cnt++;
+					} else {
+						dfs2(i, chk);
+						cnt++;
+					}
+				}
+				if (cnt == 2) {
+					Ans=Math.min(max, Ans);
+				}
+			}
+			return;
+		}
+
 		v[idx] = true;
-//		System.out.print(idx+" ");
-		sum += ar[idx];
+		powerSet(idx + 1, k + 1);
+		v[idx] = false;
+		powerSet(idx + 1, k);
+	}
+
+	private static void dfs2(int idx, boolean[] chk) {
+		chk[idx] = true;
+		max-=population[idx];
 		int size = adj[idx].size();
 		for (int i = 0; i < size; i++) {
 			Integer n = adj[idx].get(i);
-			if (!v[n]) {
-				dfs(n);
-			} else {
-				if (adj[idx].size() == 2) {
-					int tmp = 0;
-					for (int j = 0; j < v.length; j++) {
-						if (!v[j]) {
-							tmp += ar[j];
-						}
-					}
-					if (max > Math.abs(sum - tmp)) {
-						max = sum;
-					}
-				}
+			if (!v[n]&&!chk[n]) {
+				dfs2(n, chk);
+			}
+		}
+
+	}
+
+	private static void dfs(int idx, boolean chk[]) {
+		chk[idx] = true;
+		max+=population[idx];
+		int size = adj[idx].size();
+		for (int i = 0; i < size; i++) {
+			Integer n = adj[idx].get(i);
+			if (v[n] &&!chk[n]) {
+				dfs(n, chk);
 			}
 		}
 	}
 
-	private static void print(ArrayList<Integer>[] adj) {
+	private static void print() {
 		for (int i = 0; i < adj.length; i++) {
 			int size = adj[i].size();
 			for (int j = 0; j < size; j++) {
