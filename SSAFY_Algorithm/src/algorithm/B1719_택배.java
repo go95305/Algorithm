@@ -58,7 +58,7 @@ public class B1719_택배 {
 				}
 
 			}
-			System.out.println(Arrays.toString(sel));
+//			System.out.println(Arrays.toString(sel));
 			trace(k, sel, N);
 		}
 
