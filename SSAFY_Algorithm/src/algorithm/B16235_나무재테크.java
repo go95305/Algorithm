@@ -23,7 +23,7 @@ public class B16235_나무재테크 {
 			for (int j = 0; j < tree[i].length; j++) {
 				tree[i][j] = new ArrayList<Integer>();
 			}
-		}
+		}//
 		fertile = new int[N][N];
 		map = new int[N][N];// 추가되는 양분의 배열
 
