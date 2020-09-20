@@ -32,7 +32,6 @@ public class S1940_가랏RC카 {
 						speed -= tmp;
 					}
 				}
-//				System.out.println(speed);
 				len += speed;
 			}
 			System.out.printf("#%d %d\n",test_case,len);
