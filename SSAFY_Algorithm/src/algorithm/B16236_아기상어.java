@@ -16,6 +16,11 @@ public class B16236_아기상어 {
 	static int fish;
 
 	static class Point {
+		@Override
+		public String toString() {
+			return "Point [r=" + r + ", c=" + c + ", cnt=" + cnt + ", eat=" + eat + ", visit=" + visit + "]";
+		}
+
 		int r, c, cnt, eat, visit;
 
 		public Point(int r, int c, int cnt, int eat, int visit) {
@@ -74,7 +79,9 @@ public class B16236_아기상어 {
 			for (int k = 0; k < 4; k++) {
 				int nr = p.r + dr[k];
 				int nc = p.c + dc[k];
-				if (nr >= 0 && nr < N && nc >= 0 && nc < N && !v[p.visit][nr][nc] && map[nr][nc] <= babySize) {
+				if (nr >= 0 && nr < N && nc >= 0 
+						&& nc < N && !v[p.visit][nr][nc] 
+								&& map[nr][nc] <= babySize) {
 					if (map[nr][nc] < babySize) {// 물고기를 먹으면
 						if (map[nr][nc] != 0) {// 0이아니면 물고기 이므로 먹는다.
 							v[p.visit + 1][nr][nc] = true;
