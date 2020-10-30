@@ -67,7 +67,7 @@ public class B1194_달이차오른다가자 {
 			for (int i = 0; i < moon.size(); i++) {
 				if (moon.get(i).r == p.r && moon.get(i).c == p.c) {
 					Ans = Math.min(Ans, p.cnt);
-					return;
+					return;//
 				}
 			}
 			for (int k = 0; k < 4; k++) {
