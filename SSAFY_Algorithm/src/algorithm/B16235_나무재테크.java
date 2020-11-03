@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class B16235_나무재테크 {
 	static int N, M, K;
-	static int map[][];
+	static int map[][];//
 	static int fertilizer[][];
 	static int dr[] = { -1, 1, 0, 0, -1, -1, 1, 1 };
 	static int dc[] = { 0, 0, -1, 1, -1, 1, -1, 1 };
