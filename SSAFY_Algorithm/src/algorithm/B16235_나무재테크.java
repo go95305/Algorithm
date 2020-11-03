@@ -70,8 +70,6 @@ public class B16235_나무재테크 {
 			tree = newTree;
 			// 여름
 			newFer(addFer);
-//			print(tree);
-//			printf(fertilizer);
 
 			// 가을
 			for (int i = 0; i < tree.size(); i++) {
@@ -97,13 +95,6 @@ public class B16235_나무재테크 {
 			Point p = addFer.get(i);
 			fertilizer[p.r][p.c] += p.age;
 		}
-	}
-
-	private static void print(ArrayList<Point> tree) {
-		for (int i = 0; i < tree.size(); i++) {
-			System.out.println(tree.get(i).r + " " + tree.get(i).c + " " + tree.get(i).age);
-		}
-		System.out.println("===========================");
 	}
 
 	private static void addTree(int r, int c, ArrayList<Point> tree) {
