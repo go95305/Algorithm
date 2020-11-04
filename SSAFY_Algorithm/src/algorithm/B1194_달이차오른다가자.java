@@ -11,7 +11,6 @@ public class B1194_달이차오른다가자 {
 	static boolean v[][][];
 	static int dr[] = { -1, 1, 0, 0 };
 	static int dc[] = { 0, 0, -1, 1 };
-	static ArrayList<Point> moon;
 	static int bit;
 	static int Ans;
 
@@ -32,7 +31,6 @@ public class B1194_달이차오른다가자 {
 		N = sc.nextInt();
 		M = sc.nextInt();
 		map = new char[N][M];
-		moon = new ArrayList<>();
 		int stx = 0;
 		int sty = 0;
 		for (int i = 0; i < N; i++) {
@@ -42,9 +40,6 @@ public class B1194_달이차오른다가자 {
 				if (map[i][j] == '0') {
 					stx = i;
 					sty = j;
-				}
-				if (map[i][j] == '1') {
-					moon.add(new Point(i, j, 0, 0, 0));
 				}
 			}
 		}
@@ -64,11 +59,9 @@ public class B1194_달이차오른다가자 {
 		v[0][r][c] = true;
 		while (!que.isEmpty()) {
 			Point p = que.poll();
-			for (int i = 0; i < moon.size(); i++) {
-				if (moon.get(i).r == p.r && moon.get(i).c == p.c) {
-					Ans = Math.min(Ans, p.cnt);
-					return;//
-				}
+			if (map[p.r][p.c] == '1') {
+				Ans = Math.min(Ans, p.cnt);
+				return;
 			}
 			for (int k = 0; k < 4; k++) {
 				int nr = p.r + dr[k];
@@ -78,7 +71,8 @@ public class B1194_달이차오른다가자 {
 					if (map[nr][nc] >= 'a' && map[nr][nc] <= 'f') {
 						v[p.v][nr][nc] = true;
 
-						que.add(new Point(nr, nc, p.bit | (1 << (map[nr][nc] - 'a')), p.v |(1 << (map[nr][nc] - 'a')) , p.cnt + 1)); // 비트마스킹
+						que.add(new Point(nr, nc, p.bit | (1 << (map[nr][nc] - 'a')), p.v | (1 << (map[nr][nc] - 'a')),
+								p.cnt + 1)); // 비트마스킹
 
 						// 현재칸은 방문을 푼다.
 					}
