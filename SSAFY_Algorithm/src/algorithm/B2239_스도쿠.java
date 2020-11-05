@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class B2239_스도쿠 {
 	static int N;
 	static int map[][];
+	static boolean flag;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -26,8 +27,10 @@ public class B2239_스도쿠 {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (i == N - 1 && j == N - 1) {
-					print();
-					System.exit(0);
+					if (flag) {
+						print();
+						System.exit(0);
+					}
 				}
 				boolean v[] = new boolean[10];
 				if (map[i][j] == 0) {
@@ -35,6 +38,7 @@ public class B2239_스도쿠 {
 					for (int k = 1; k <= 9; k++) {
 						if (!v[k]) {
 							map[i][j] = k;
+							flag = filledChk();
 							sudoku();
 							map[i][j] = 0;
 						}
@@ -43,6 +47,16 @@ public class B2239_스도쿠 {
 				}
 			}
 		}
+	}
+
+	private static boolean filledChk() {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (map[i][j] == 0)
+					return false;
+			}
+		}
+		return true;
 	}
 
 	private static void print() {
