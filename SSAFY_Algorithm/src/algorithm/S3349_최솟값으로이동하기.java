@@ -18,14 +18,6 @@ public class S3349_최솟값으로이동하기 {
             this.r = r;
             this.c = c;
         }
-
-        @Override
-        public String toString() {
-            return "Point{" +
-                    "r=" + r +
-                    ", c=" + c +
-                    '}';
-        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -45,7 +37,6 @@ public class S3349_최솟값으로이동하기 {
                 int y = Integer.parseInt(st.nextToken());
                 list.add(new Point(x, y));
             }
-//            System.out.println(list);
             int ans = 0;
             for (int i = 1; i < list.size(); i++) {
                 Point n1 = list.get(i - 1);
@@ -53,7 +44,6 @@ public class S3349_최솟값으로이동하기 {
 
                 int x_Cross = (n2.r - n1.r);
                 int y_Cross = (n2.c - n1.c);
-//                System.out.println(is_Cross);
                 if (x_Cross * y_Cross > 0) {
                     if (Math.abs(x_Cross) > Math.abs(y_Cross)) {
                         ans += Math.abs(y_Cross) + (Math.abs(x_Cross) - Math.abs(y_Cross));
@@ -64,7 +54,6 @@ public class S3349_최솟값으로이동하기 {
                     ans += Math.abs(n2.r - n1.r) + Math.abs(n2.c - n1.c);
                 }
             }
-//            System.out.println(ans);
             System.out.println("#" + tc + " " + ans);
         }
     }
