@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class J1106_장기 {
+public class J1106_장기_BFS {
     static int R, C, S, K, N, M;
     static int map[][];
     static int dr[] = {-2, -1, 1, 2, 2, 1, -1, -2};
