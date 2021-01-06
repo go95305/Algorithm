@@ -1,6 +1,8 @@
 package algorithm;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Programmers_쿼드압축후개수세기 {
     static int zero,one;
