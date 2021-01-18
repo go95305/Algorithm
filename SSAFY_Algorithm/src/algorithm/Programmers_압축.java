@@ -1,7 +1,7 @@
 package algorithm;
 
 import java.util.*;
-class Solution {
+class 압축 {
     // static class Word{
     //     int num;
     //     char word;

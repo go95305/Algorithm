@@ -1,7 +1,7 @@
 package algorithm;
 
 import java.util.*;
-class Solution {
+class 방금그곡 {
     public String solution(String m, String[] musicinfos) {
         String answer = "(None)";
         m=change(m);

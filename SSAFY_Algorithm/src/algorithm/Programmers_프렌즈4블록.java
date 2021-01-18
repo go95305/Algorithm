@@ -2,6 +2,8 @@ package algorithm;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Programmers_프렌즈4블록 {
     static char map[][];
@@ -20,6 +22,7 @@ public class Programmers_프렌즈4블록 {
                 map[i][j]=board[i].charAt(j);
             }
         }
+
 
         int dr[]= {0,1,1};
         int dc[] = {1,0,1};
