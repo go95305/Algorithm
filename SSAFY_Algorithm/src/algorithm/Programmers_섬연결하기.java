@@ -31,7 +31,7 @@ class 섬연결하기 {
             edgeList[i] = new Edge(from,to,weight);
         }
 
-        //정렬한다.
+        //정렬한다.(weight가 짧은 것부터 탐색한다.)
         Arrays.sort(edgeList);
         //각 정점은 자기를 부모로 가지게 초기화한다.
         make(n);
