@@ -12,7 +12,7 @@ public class CodeUp_최소대금 {
             pasta[i] = sc.nextInt();
         }
         for (int i = 0; i < 2; i++) {
-            juice[i] = sc.nextInt();//dd
+            juice[i] = sc.nextInt();
         }
         Arrays.sort(pasta);
         Arrays.sort(juice);
