@@ -7,9 +7,9 @@ public class B4796_캠핑 {
         Scanner sc = new Scanner(System.in);
         int n = 1;
         while (true) {
-            int L = sc.nextInt(); //5
-            int P = sc.nextInt(); // 8
-            int V = sc.nextInt(); // 20
+            int L = sc.nextInt();
+            int P = sc.nextInt();
+            int V = sc.nextInt();
             if (V == 0)
                 break;
 
