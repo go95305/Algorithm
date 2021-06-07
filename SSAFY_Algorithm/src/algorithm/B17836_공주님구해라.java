@@ -3,12 +3,11 @@ package algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class B7836_공주님구해라 {
+public class B17836_공주님구해라 {
     static int N, M, K;
     static int map[][];
     static boolean v[][][];
@@ -64,7 +63,7 @@ public class B7836_공주님구해라 {
                     if (map[nr][nc] == 1) {
                         if (p.wall == 1) {
                             v[p.wall][nr][nc] = true;
-                            que.add(new Point(nr, nc, p.cnt + 1, p.wall));
+                            que.add(new Point(nr, nc, p.cnt + 1, 1));
                         }
                     } else if (map[nr][nc] == 0) {
                         v[p.wall][nr][nc] = true;
