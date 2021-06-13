@@ -49,7 +49,6 @@ public class B17281_공 {
 
     private static void permutation(int k) {
         if (k == v.length) {
-//            System.out.println(Arrays.toString(sel));
             getScore();
             return;
         }
@@ -71,7 +70,6 @@ public class B17281_공 {
         int listCnt = 0;
 
 
-//        System.out.println(Arrays.toString(sel));
         while (inningCnt < inning) {
             boolean flag = true;
             boolean[] board = new boolean[3];
@@ -79,9 +77,7 @@ public class B17281_공 {
             for (int i = 0; i < sel.length; i++) {
                 position[i] = new Player(map[inningCnt][sel[i]], sel[i]);
             }
-//            if (position[3].number != 0) { //1번선수가 4번타자로 매번 설정
-//                replace(position);
-//            }
+
             while (flag) {
                 //이전 선수 찾았으면 그다음 선수를 찾아서 p에 할당. 지금은 그냥 인덱스로 할당해버림
                 Player p = position[listCnt];
@@ -123,17 +119,5 @@ public class B17281_공 {
         }
         //점수 최대값 구하기
         ans = Math.max(ans, totalScore);
-    }
-
-
-    private static void replace(Player[] position) {
-        for (int i = 0; i < position.length; i++) {
-            if (position[i].number == 0) {
-                Player p = position[3];
-                position[3] = position[i];
-                position[i] = p;
-                break;
-            }
-        }
     }
 }
