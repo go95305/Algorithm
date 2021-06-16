@@ -1,44 +1,58 @@
 package algorithm;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class B1074_Z {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		int r = sc.nextInt();
-		int c = sc.nextInt();
-		int ans = 0;
-		int y = (int) Math.pow(2, n) / 2;
-		int x = y;
+    static int N;
+    static int r, c;
+    static int ans;
+    static boolean flag;
 
-		while (n-- > 0) {
-			int temp = (int) Math.pow(2, n) / 2;
-			int skip = (int) Math.pow(4, n);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-			if (r < y && c < x) {
-				// 1
-				x -= temp;
-				y -= temp;
-			} else if (r < y && x <= c) {
-				// 2
-				x += temp;
-				y -= temp;
-				ans += skip;
-			} else if (y <= r && c < x) {
-				// 3
-				x -= temp;
-				y += temp;
-				ans += skip * 2;
-			} else {
-				// 4
-				x += temp;
-				y += temp;
-				ans += skip * 3;
-			}
-		}
-		System.out.println(ans);
+        N = Integer.parseInt(st.nextToken());
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
+        int num = (int) Math.pow(2, N);
+        ans = 0;
+        powerSet(0, 0, num, 0);
+        System.out.println(ans);
 
-	}
+    }
 
+    private static void powerSet(int row, int col, int size, int cnt) {
+        if (flag)
+            return;
+
+        if (size == 2) {
+            for (int i = row; i < row + size; i++) {
+                for (int j = col; j < col + size; j++) {
+                    if (i == r && j == c) {
+                        ans = cnt;
+                        flag = true;
+                        return;
+                    }
+                    cnt++;
+                }
+            }
+        }
+
+        if (size >= 4) {
+            if (r < row + size / 2 && c < col + size / 2)
+                powerSet(row, col, size / 2, cnt);
+            else if (r < row + size / 2 && c >= col + size / 2)
+                powerSet(row, col + size / 2, size / 2, cnt + ((size / 2) * (size / 2)));
+            else if (r >= row + size / 2 && c < col + size / 2)
+                powerSet(row + size / 2, col, size / 2, cnt + (size * size / 2));
+            else
+                powerSet(row + size / 2, col + size / 2, size / 2, cnt + ((size / 2) * (size / 2) + (size / 2) * (size / 2) + ((size / 2) * (size / 2))));
+        }
+
+
+    }
 }
