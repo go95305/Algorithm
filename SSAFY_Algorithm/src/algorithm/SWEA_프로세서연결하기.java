@@ -26,11 +26,9 @@ public class SWEA_프로세서연결하기 {
                 st = new StringTokenizer(br.readLine(), " ");
                 for (int j = 0; j < N; j++) {
                     map[i][j] = Integer.parseInt(st.nextToken());
-                    if (i != 0 && j != 0 && map[i][j] == 1)
-                        totalCore++;
                 }
             }
-//            System.out.println(totalCore);
+
             ans = Integer.MAX_VALUE;
             maxCore = 0;
             maxinos(0, new boolean[N][N], 0, 0);
@@ -77,17 +75,6 @@ public class SWEA_프로세서연결하기 {
                 ans = cnt;
         }
 
-    }
-
-    private static int leftCore(boolean[][] v) {
-        int cnt = 0;
-        for (int i = 1; i < N - 1; i++) {
-            for (int j = 1; j < N - 1; j++) {
-                if (map[i][j] == 1 && !v[i][j])
-                    cnt++;
-            }
-        }
-        return cnt;
     }
 
     private static int setVisit(boolean[][] b, int r, int c, int d) {
