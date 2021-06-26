@@ -53,7 +53,6 @@ public class B17471_게리맨더링_re {
     private static void powerSet(int idx, int k) {
         if (idx == v.length) {
             connect = new boolean[N];
-//            System.out.println(Arrays.toString(v));
             //만약 선거구가 하나가 아니면
             if (twoOrMore())
                 isConnected();
@@ -94,7 +93,6 @@ public class B17471_게리맨더링_re {
                 break;
             }
         }
-//        System.out.println(tTeam);
 
         for (int i = 0; i < N; i++) {
             if (!v[i] && !connect[i]) {
@@ -104,7 +102,6 @@ public class B17471_게리맨더링_re {
                 break;
             }
         }
-//        System.out.println(fTeam);
 
 
         if (allChecked()) {
