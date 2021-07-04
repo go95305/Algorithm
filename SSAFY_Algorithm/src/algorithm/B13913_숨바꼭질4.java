@@ -23,8 +23,8 @@ public class B13913_숨바꼭질4 {
         int K = Integer.parseInt(st.nextToken());
 
 
-        boolean[] v = new boolean[100001];
-        int[] parent = new int[100001];
+        boolean v[] = new boolean[100001];
+        int parent[] = new int[100001];
         Queue<Point> que = new LinkedList<>();
         que.add(new Point(N, 0));
         v[N] = true;
