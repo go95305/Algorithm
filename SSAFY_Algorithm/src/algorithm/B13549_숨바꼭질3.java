@@ -25,8 +25,6 @@ public class B13549_숨바꼭질3 {
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
-        int map[] = new int[100001];
-
         Queue<Point> que = new LinkedList<>();
         que.add(new Point(N, 0));
         boolean v[][] = new boolean[2][100001];
