@@ -46,6 +46,9 @@ public class SWEA1247_최적경로 {
     }
 
     private static void permutation(int idx, int k, int size, int beforeR, int beforeC) {
+        if(size>=ans)
+            return;
+
         if (k == list.size()) {
             ans = Math.min(ans, size + Math.abs(beforeR - home.r) + Math.abs(beforeC - home.c));
             return;
