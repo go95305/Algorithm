@@ -46,10 +46,7 @@ public class B2252_줄세우기 {
                 }
             }
         }
-
         for (int i=0;i<ans.size();i++)
             System.out.print(ans.get(i)+1+" ");
-
-
     }
 }
