@@ -85,6 +85,7 @@ public class B16954_움직이는미로탈출 {
             print();
             if (wall.size() > 0)
                 movewall();
+            System.out.println(wall.size());
             System.out.println("===========벽 움직이고난 후===========");
             print();
             //벽과 겹치는 사람의 칸을 없앤다.
@@ -120,6 +121,7 @@ public class B16954_움직이는미로탈출 {
             for (int j = 0; j < wall.size(); j++) {
                 if (p.r == wall.get(j).r && p.c == wall.get(j).c) {
                     fl = true;
+                    v[p.r][p.c]=false;
                     break;
                 }
             }
