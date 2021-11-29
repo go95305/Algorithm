@@ -63,7 +63,7 @@ public class B17085_십자가2개놓기 {
                     dfs(depth + 1, copy);
                     //십자가를 풀기
 
-                    dCross(i, j, d);
+                    dCross(i, j);
                     print();
                 }
             }
@@ -80,9 +80,9 @@ public class B17085_십자가2개놓기 {
         System.out.println();
     }
 
-    private static void dCross(int r, int c, int d) {
+    private static void dCross(int r, int c) {
         map[r][c] = '#';
-
+        int d = 1;
         for (int j = 1; j <= d; j++) {
             for (int k = 0; k < 4; k++) {
                 int nr = r + dr[k] * j;
