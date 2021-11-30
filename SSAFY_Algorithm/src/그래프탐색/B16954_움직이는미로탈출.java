@@ -1,7 +1,5 @@
 package 그래프탐색;
 
-import sun.security.util.ArrayUtil;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +16,14 @@ public class B16954_움직이는미로탈출 {
         Point(int r, int c) {
             this.r = r;
             this.c = c;
+        }
+
+        @Override
+        public String toString() {
+            return "Point{" +
+                    "r=" + r +
+                    ", c=" + c +
+                    '}';
         }
     }
 
@@ -45,11 +51,15 @@ public class B16954_움직이는미로탈출 {
         v = new boolean[N][N];
         Queue<Point> que = new LinkedList<>();
         que.add(new Point(7, 0));
+        map[7][0] = '1';
 
+        while (map[0][7] != '1') {
+            bfs(que);
+            if (flag)
+                break;
+        }
 
-        bfs(que);
-
-        if (flag)
+        if (map[0][7] == '1')
             System.out.println(1);
         else
             System.out.println(0);
@@ -58,59 +68,60 @@ public class B16954_움직이는미로탈출 {
     }
 
     private static void bfs(Queue<Point> que) {
+        if (que.size() == 0) {
+            flag = true;
+            return;
+        }
         v[7][0] = true;
-        while (!que.isEmpty()) {
+        int size = que.size();
+        for (int i = 0; i < size; i++) {
             Point p = que.poll();
             if (p.r == 0 && p.c == N - 1) {
                 flag = true;
                 return;
             }
-            for (int k = 0; k < 9; k++) {
-                if (k != 8) {
-                    int nr = p.r + dr[k];
-                    int nc = p.c + dc[k];
-                    if (nr >= 0 && nr < N && nc >= 0 && nc < N && !v[nr][nc] && map[nr][nc] == '.') {
-                        que.add(new Point(nr, nc));
-                        map[nr][nc] = '1';
-                        v[nr][nc] = true;
-                    }
-                } else {
-                    que.add(p);
-                    v[p.r][p.r] = true;
+            for (int k = 0; k < 8; k++) {
+                int nr = p.r + dr[k];
+                int nc = p.c + dc[k];
+                if (nr >= 0 && nr < N && nc >= 0 && nc < N && !v[nr][nc] && map[nr][nc] == '.') {
+                    que.add(new Point(nr, nc));
+                    map[nr][nc] = '1';
+                    v[nr][nc] = true;
                 }
             }
+            que.add(p);
+            v[p.r][p.c] = true;
+        }
+        if (wall.size() > 0) {
+            movewall();
+        }
 
-            System.out.println("========사람 움직이고난후===========");
-            System.out.println(que.size() + "   사람 공간 수");
-            print();
+
+
             if (wall.size() > 0)
                 movewall();
-            System.out.println(wall.size());
-            System.out.println("===========벽 움직이고난 후===========");
-            print();
             //벽과 겹치는 사람의 칸을 없앤다.
             deleteStanding(que);
             v = new boolean[N][N];
             setCurVisit();
 
 
-        }
+        //벽과 겹치는 사람의 칸을 없앤다.
+        deleteStanding(que);
+
+
+        v = new boolean[N][N];
+        setCurVisit();
     }
+
 
     private static void setCurVisit() {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (map[i][j] == 1)
+                if (map[i][j] == '1')
                     v[i][j] = true;
             }
         }
-    }
-
-    private static void print() {
-        for (int i = 0; i < N; i++) {
-            System.out.println(Arrays.toString(map[i]));
-        }
-        System.out.println();
     }
 
     private static void deleteStanding(Queue<Point> que) {
@@ -148,13 +159,6 @@ public class B16954_움직이는미로탈출 {
         map = tmpMap;
     }
 
-    private static void printC(char[][] tmpMap) {
-        for (int i = 0; i < N; i++) {
-            System.out.println(Arrays.toString(tmpMap[i]));
-        }
-        System.out.println();
-    }
-
     private static void setMap(char[][] tmpMap) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -164,8 +168,6 @@ public class B16954_움직이는미로탈출 {
                     tmpMap[i][j] = '.';
             }
         }
-        System.out.println("==========copy 지도===========");
-        printC(tmpMap);
     }
 
 }

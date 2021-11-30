@@ -3,24 +3,17 @@ package 완전탐색;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class B17085_십자가2개놓기 {
     static int N, M;
     static char map[][];
-    static boolean v[][];
+
     static int size;
     static int dr[] = {-1, 1, 0, 0};
     static int dc[] = {0, 0, -1, 1};
-
-    static class Point {
-        int r, c;
-
-        Point(int r, int c) {
-            this.r = r;
-            this.c = c;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,17 +28,22 @@ public class B17085_십자가2개놓기 {
             }
         }
         size = 0;
-        v = new boolean[N][M];
+        boolean v[][] = new boolean[N][M];
         char copy[][] = new char[N][M];
-        dfs(0, copy);
+
+        for (int i = 0; i < N; i++) {
+            copy[i] = map[i].clone();
+        }
+        dfs(0, copy, v);
         System.out.println(size);
 
     }
 
-    private static void dfs(int depth, char[][] copy) {
+    private static void dfs(int depth, char[][] copy, boolean[][] v) {
         if (depth == 2) {
-            size = Math.max(size, getSize());
-            print();
+            size = Math.max(size, getSize(copy));
+//            System.out.println(size);
+//            print(copy);
             return;
         }
 
@@ -58,73 +56,75 @@ public class B17085_십자가2개놓기 {
                         tmp[k] = copy[k].clone();
                         vi[k] = v[k].clone();
                     }
-                    cross(i, j, tmp, vi);
+                    if (depth == 0)
+                        tmp[i][j] = '1';
+                    else
+                        tmp[i][j] = '2';
+                    vi[i][j] = true;
+                    cross(i, j, tmp, vi, depth);
 
-                    dfs(depth + 1, copy);
+                    dfs(depth + 1, tmp, vi);
                     //십자가를 풀기
-
-                    dCross(i, j);
-                    print();
+                    tmp[i][j] = '#';
+                    vi[i][j] = false;
                 }
             }
         }
     }
 
-    private static void print() {
+    private static void print(char[][] copy) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                System.out.print(map[i][j]);
+                System.out.print(copy[i][j]);
             }
             System.out.println();
         }
         System.out.println();
     }
 
-    private static void dCross(int r, int c) {
-        map[r][c] = '#';
-        int d = 1;
-        for (int j = 1; j <= d; j++) {
-            for (int k = 0; k < 4; k++) {
-                int nr = r + dr[k] * j;
-                int nc = c + dc[k] * j;
-                if (nr >= 0 && nr < N && nc >= 0 && nc < M) {
-                    map[nr][nc] = '#';
-                    v[nr][nc] = false;
-                }
-            }
-        }
-    }
 
-    private static int getSize() {
-        int size = 0;
+    private static int getSize(char[][] copy) {
+        int size1 = 0;
+        int size2 = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                if (map[i][j] == '*')
-                    size++;
+                if (copy[i][j] == '1')
+                    size1++;
+                if (copy[i][j] == '2')
+                    size2++;
+
             }
         }
-        return size;
+        return size1 * size2;
     }
 
-    private static void cross(int r, int c, char[][] tmp, boolean[][] vi) {
-        map[r][c] = '*';
+    private static void cross(int r, int c, char[][] tmp, boolean[][] vi, int depth) {
+        int d = 1;
         while (true) {
-            int d = 1;
-            char[][] copy = new char[N][M];
-            boolean vv[][] = new boolean[N][M];
             for (int k = 0; k < 4; k++) {
                 int nr = r + dr[k] * d;
                 int nc = c + dc[k] * d;
-                if (nr >= 0 && nr < N && nc >= 0 && nc < M && !vi[nr][nc] && tmp[nr][nc] == '#') {
-                    copy[nr][nc] = '*';
-                    vv[nr][nc] = true;
-                } else {
+                if (nr < 0 || nr >= N || nc < 0 || nc >= M || vi[nr][nc] || tmp[nr][nc] != '#') {
                     return;
                 }
             }
-            vi = vv;
-            tmp = copy;
+            setCross(r, c, d, tmp, vi, depth);
+            dfs(depth + 1, tmp, vi);
             d++;
+        }
+    }
+
+    private static void setCross(int r, int c, int dist, char[][] tmp, boolean[][] vi, int depth) {
+        for (int j = 1; j <= dist; j++) {
+            for (int k = 0; k < 4; k++) {
+                int nr = r + dr[k] * j;
+                int nc = c + dc[k] * j;
+                if (depth == 0)
+                    tmp[nr][nc] = '1';
+                else
+                    tmp[nr][nc] = '2';
+                vi[nr][nc] = true;
+            }
         }
     }
 }
