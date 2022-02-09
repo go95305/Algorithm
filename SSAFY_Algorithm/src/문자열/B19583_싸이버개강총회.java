@@ -14,6 +14,8 @@ public class B19583_싸이버개강총회 {
         E = Integer.parseInt(st.nextToken().replace(":", ""));
         Q = Integer.parseInt(st.nextToken().replace(":", ""));
 
+
+
         HashMap<String, Integer> hm = new HashMap<>();
         int cnt = 0;
         String word = "";
