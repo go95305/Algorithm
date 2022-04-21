@@ -26,16 +26,6 @@ public class 로봇 {
             this.dir = dir;
             this.cnt = cnt;
         }
-
-        @Override
-        public String toString() {
-            return "Point{" +
-                    "r=" + r +
-                    ", c=" + c +
-                    ", dir=" + dir +
-                    ", cnt=" + cnt +
-                    '}';
-        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -43,46 +33,29 @@ public class 로봇 {
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         M = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
-        map = new int[M][N];
-        v = new boolean[1000][M][N];
-        for (int i = 0; i < M; i++) {
+        map = new int[M + 1][N + 1];
+        v = new boolean[1000][M + 1][N + 1];
+        for (int i = 1; i <= M; i++) {
             st = new StringTokenizer(br.readLine(), " ");
-            for (int j = 0; j < N; j++) {
+            for (int j = 1; j <= N; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
         st = new StringTokenizer(br.readLine(), " ");
-        int sr = Integer.parseInt(st.nextToken()) - 1;
-        int sc = Integer.parseInt(st.nextToken()) - 1;
+        int sr = Integer.parseInt(st.nextToken());
+        int sc = Integer.parseInt(st.nextToken());
         int dir = Integer.parseInt(st.nextToken());
-//        if (dir == 1)
-//            dir = 2;
-//        else if (dir == 2)
-//            dir = 0;
-//        else if (dir == 3)
-//            dir = 3;
-//        else
-//            dir = 1;
 
         st = new StringTokenizer(br.readLine(), " ");
-        pr = Integer.parseInt(st.nextToken()) - 1;
-        pc = Integer.parseInt(st.nextToken()) - 1;
+        pr = Integer.parseInt(st.nextToken());
+        pc = Integer.parseInt(st.nextToken());
         pdir = Integer.parseInt(st.nextToken());
-//        if (pdir == 1)
-//            pdir = 2;
-//        else if (pdir == 2)
-//            pdir = 0;
-//        else if (pdir == 3)
-//            pdir = 3;
-//        else
-//            pdir = 1;
+
         Queue<Point> que = new LinkedList<>();
         que.add(new Point(sr, sc, dir, 0));
-        v[dir][sr][sc]=true;
-        ans = Integer.MAX_VALUE;
+        v[dir][sr][sc] = true;
         bfs(que);
-        System.out.println(ans);
 
     }
 
@@ -91,47 +64,52 @@ public class 로봇 {
             //모든 방향만 설정하고 다시 넣는다.
             Point p = que.poll();
             if (p.r == pr && p.c == pc && pdir == p.dir) {
-                ans = p.cnt;
+                System.out.println(p.cnt);
                 return;
             }
 
 
             for (int k = 1; k <= 3; k++) {
-                int nr = p.r + dr[p.dir-1] * k;
-                int nc = p.c + dc[p.dir-1] * k;
-                if (nr >= 0 && nr < M && nc >= 0 && nc < N && !v[p.dir][nr][nc] && map[nr][nc] == 0) {
-                    v[p.dir][nr][nc] = true;
-                    que.add(new Point(nr, nc, p.dir, p.cnt + 1));
-                } else
-                    break;
-            }
-
-
-            for (int i = 1; i <= 4; i++) {
-                if (p.dir != i && !v[i][p.r][p.c]) {
-                    int turn = 1;
-                    if (p.dir == 1) {
-                        if (i == 2) {
-                            turn++;
+                int nr = p.r + dr[p.dir - 1] * k;
+                int nc = p.c + dc[p.dir - 1] * k;
+                if (nr > 0 && nr <= M && nc > 0 && nc <= N) {
+                    if (map[nr][nc] == 0) {
+                        if (!v[p.dir][nr][nc]) {
+                            v[p.dir][nr][nc] = true;
+                            que.add(new Point(nr, nc, p.dir, p.cnt + 1));
                         }
-                    } else if (p.dir == 2) {
-                        if (i == 1) {
-                            turn++;
-                        }
-                    } else if (p.dir == 3) {
-                        if (i == 4) {
-                            turn++;
-                        }
-                    } else {
-                        if (i == 3) {
-                            turn++;
-                        }
-                    }
-                    v[i][p.r][p.c] = true;
-                    que.add(new Point(p.r, p.c, i, p.cnt + turn));
+                    } else
+                        break;
                 }
             }
-        }
 
+
+
+        for (int i = 1; i <= 4; i++) {
+            if (p.dir != i && !v[i][p.r][p.c]) {
+                int turn = 1;
+                if (p.dir == 1) {
+                    if (i == 2) {
+                        turn++;
+                    }
+                } else if (p.dir == 2) {
+                    if (i == 1) {
+                        turn++;
+                    }
+                } else if (p.dir == 3) {
+                    if (i == 4) {
+                        turn++;
+                    }
+                } else {
+                    if (i == 3) {
+                        turn++;
+                    }
+                }
+                v[i][p.r][p.c] = true;
+                que.add(new Point(p.r, p.c, i, p.cnt + turn));
+            }
+        }
     }
+
+}
 }
