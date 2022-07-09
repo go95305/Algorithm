@@ -1,6 +1,7 @@
 <application>
   <component name="FileTypeManager" version="18">
     <extensionMap>
+      <mapping pattern="파일명정렬" type="AUTO_DETECTED" />
       <mapping pattern="다시풀문제" type="AUTO_DETECTED" />
       <mapping ext="space.kts" type="Kotlin" />
       <mapping ext="gradle.kts" type="Kotlin" />
